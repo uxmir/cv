@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google"; //Roboto import
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+import Navbar from "../app/components/design-system/template/Navbar/Navbar";
+import AuthProvider from "../app/DataProvider/AuthProvider/AuthProvider";
+import CvDataProvider from "../app/DataProvider/CvDataProvider/CvDataProvider";
+import EducationDataProvider from "../app/DataProvider/EducationDataProvider/EducationDataProvider";
+import SkillDataProvider from "../app/DataProvider/SkillDataProvider/SkillDataProvider";
+import ToastProvider from '../app/components/design-system/atoms/ToastProvider/ToastProvider'
+// Roboto font setup
+const roboto = Roboto({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -24,11 +26,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+   <body className={`${roboto.className} antialiased`}>
+    <ToastProvider/>
+  <AuthProvider>
+    <CvDataProvider>
+      <EducationDataProvider>
+        <SkillDataProvider>
+          <Navbar />
+          {children}
+          <div className="text-center py-5 text-base sm:text-lg text-gray-500">
+       <span> &copy;{new Date().getFullYear()} All Things is reserved</span>
+          </div>
+        </SkillDataProvider>
+      </EducationDataProvider>
+    </CvDataProvider>
+  </AuthProvider>
+</body>
     </html>
   );
 }
