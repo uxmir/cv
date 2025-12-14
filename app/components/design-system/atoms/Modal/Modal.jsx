@@ -16,3 +16,41 @@ const Modal = ({close,children}) => {
 }
 
 export default Modal
+
+
+
+//we have to add this css in  index.css file or similar page like this
+.modal {
+  animation: scaleUp 0.50s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+//usages 
+const [modal, setModal] = useState(false);
+
+<button
+  type="button"
+  onClick={() => setModal(true)}
+  className="px-3 py-3 bg-black text-white rounded-lg"
+>
+  Open Modal
+</button>
+
+{modal && (
+  <Modal closeModal={() => setModal(false)}>
+    mirmonir
+  </Modal>
+)}
